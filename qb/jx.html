@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>微信支付成功</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="css/wxzf.css">
+    <script src="https://lib.baomitu.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var curPrice = sessionStorage.getItem("curPrice");
+            var accounts = sessionStorage.getItem("accounts");
+            $(".num").text(curPrice);
+            $("#accountsRecharge").text(accounts);
+        });
+    </script>
+</head>
+<body>
+<!--<div class="header">
+    <div class="all_w" style="position:relative; z-index:1;">
+        <div class="ttwenz" style=" text-align:center; width:100%;">
+            <h4>交易详情</h4>
+            <h5>微信安全支付</h5>
+        </div>
+        <a href="index.html" class="fh_but">返回</a></div>
+</div>-->
+<div class="zfcg_box ">
+    <div class="all_w">
+        <img src="images/cg_03.jpg">
+        <p style="color:#000;">购买成功</p>
+    </div>
+</div>
+<div class="cgzf_info">
+    <div class="sp-xx">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td>商品名称</td>
+      <td style="text-align:right;">Q币 × <span class="num"></span></td>
+    </tr>
+    <tr>
+      <td>充值帐号</td>
+      <td style="text-align:right;" id="accountsRecharge">1111</td>
+    </tr>
+    <tr>
+      <td>积分余额</td>
+      <td style="text-align:right;">6537580 <a style="color:#4775BE;" href="#">兑换 &gt;</a></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+    <div class="spxx_shop">
+        <div class="box-wc">
+			<a href="index.html">继续充值</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

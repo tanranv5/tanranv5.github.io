@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>腾讯充值</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/toast.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link rel="stylesheet" type="text/css" href="css/wxzf.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="https://lib.baomitu.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/toast.js"></script>
+    <script>
+        $(function () {
+            var priceList=[10,20,100,0];
+            var curPrice =10;
+            $("#accounts").focus(function () {
+               $(".input-block").css({
+                   border:"1px solid #08ba06"
+               })
+            });
+            $("#accounts").blur(function () {
+                $(".input-block").css({
+                    border:"1px solid #dedede"
+                })
+            });
+            //删除帐号
+            $(".icon-del").click(function () {
+                $("#accounts").val("");
+                $(this).hide();
+                $("#checkNum").hide();
+            });
+
+            $("#accounts").keyup(function (){
+                if($(this).val() !=''){
+                    $(".icon-del").show();
+                    $("#checkNum").show();
+                    $("#checkNum").html('您正在给<span class="text-orange">QQ号('+$(this).val()+')</span>充值Q币，请核对号码！');
+                }else{
+                    $("#checkNum").hide();
+                }
+
+            });
+            //选金额
+            $(".price-list-flex-item-padding").each(function (index,item) {
+               $(item).click(function () {
+                   $(".price-list-flex-item-padding").removeClass("active");
+                   $(this).addClass("active");
+                   if(index != 3){
+                       $(".price-input").val("");
+                       curPrice = priceList[index];
+                       $(".price-num").text(curPrice);
+
+                   }else{
+                       if( $(".price-input").val() !=""){
+
+                       }else{
+                           curPrice = priceList[index];
+                           $(".price-num").text(curPrice);
+                       }
+                       return ;
+                   }
+
+               })
+            });
+            //其他金额
+            $(".price-input").keyup(function () {
+                curPrice =Number($(this).val());
+                $(".price-num").text(curPrice);
+            });
+            $(".ljzf_but").click(function () {
+                if($("#accounts").val() == ""){
+//                    alert("请输入正确的QQ帐号");
+                    $('body').toast({
+                        content:'请输入正确的QQ帐号',
+                        duration:1000,
+                        animateIn:'bounceIn-hastrans',
+                        animateOut:'bounceOut-hastrans'
+                    });
+                    return;
+                }
+                if(curPrice ==0){
+                    $('body').toast({
+                        content:'请输入正确的金额数量',
+                        duration:1000,
+                        animateIn:'bounceIn-hastrans',
+                        animateOut:'bounceOut-hastrans'
+                    });
+//                    alert("请输入正确的金额数量");
+                    return;
+                }
+                sessionStorage.setItem("curPrice",curPrice);
+                sessionStorage.setItem("accounts",$("#accounts").val());
+                $(".mask").show();
+                $(".loadding").show();
+                setTimeout(function () {
+                    location.href='./confirm.html';
+                },2000)
+            });
+
+        })
+    </script>
+</head>
+<body>
+    <div class="nav">
+        <ul class="clear clear_wl">
+            <li class="nav-item active">Q币充值</li>
+            <li class="nav-item">游戏充值</li>
+            <li class="nav-item">服务开通</li>
+            <li class="nav-item-bg"></li>
+        </ul>
+    </div>
+    <label class="input-block">
+        <input type="number" name="value" id="accounts" oninput="if(value.length>10)value=value.slice(0,10)" placeholder="请输入QQ帐号" autocomplete="off">
+        <i class="icon-del" style="display: none"></i>
+    </label>
+    <div class="text-block" id="checkNum" style="display: none">
+        您正在给<span class="text-orange">QQ号(944297049)</span>充值Q币，请核对号码！
+    </div>
+    <div class="price-list">
+        <div class="price-list-flex clear clear_wl">
+            <div class="price-list-flex-item">
+                <div class="price-list-flex-item-padding active">
+                    10 Q币
+                </div>
+            </div>
+            <div class="price-list-flex-item">
+                <div class="price-list-flex-item-padding">
+                    20 Q币
+                </div>
+            </div>
+            <div class="price-list-flex-item">
+                <div class="price-list-flex-item-padding">
+                    100 Q币
+                </div>
+            </div>
+            <div class="price-list-flex-item">
+                <div class="price-list-flex-item-padding">
+                    <input type="number" oninput="if(value.length>4)value=value.slice(0,4)" class="price-input" placeholder="其他数额">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cur-price">
+        <span class="price-num">10</span>元
+    </div>
+    <div class="ljzf-box">
+        <a href="javascript:void(0);" class="ljzf_but all_w">立即支付</a>
+    </div>
+    <div class="text-bottom">
+        本服务由腾讯充值提供。Q币仅能用于兑换腾讯公司直接运营的产品和服务，不能兑换现金，不能进行转账交易，不能兑换腾讯公司体系外的产品和服务
+    </div>
+    <div class="mask"></div>
+    <div class="loadding">
+        <div style="margin-top: 40px;text-align: center;margin-bottom: 15px"><img width="90" src="images/weixin-pay0.png" alt=""></div>
+        <p style="color:#fff;text-align: center;font-size: 20px"><img src="images/5-121204194026.gif" width="60"></p>
+    </div>
+</body>
+</html>
