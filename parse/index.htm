@@ -142,7 +142,7 @@
 		alert("请输入url");
 		return ;
 	}
-	$.get("http://45.40.197.230/video/parse?url="+url,function(msg){
+	$.get("https://www.amckz.cn/video/parse?url="+url,function(msg){
 		if(msg!=""){
 			$("#playAddr").attr('href',msg.playAddr);
 			$("#cover").attr('href',msg.cover);
